@@ -5,20 +5,41 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc -noEmit",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "pre-commit": "npm run build && npx prettier --write src && npm run lint",
     "test": "npx playwright test",
     "test:chrome": "npx playwright test --project Chrome",
     "test:firefox": "npx playwright test --project Firefox",
     "test:edge": "npx playwright test --project Edge",
     "test:safari": "npx playwright test --project Safari",
-    "allure": "allure generate ./reports/allure && allure open ./reports/allure/awesome"
+    "allure": "allure generate ./reports/allure && allure open ./reports/allure/awesome",
+    "prepare": "husky && husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0",
-    "typescript": "^5.9.3"
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.10.1",
+    "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown src",
+    "*.ts": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
