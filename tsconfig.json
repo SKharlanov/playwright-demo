@@ -17,10 +17,7 @@
     "strict": true,
     "module": "nodenext",
     "target": "esnext",
-    "types": [
-      "node",
-      "@playwright/test"
-    ],
+    "types": ["node", "@playwright/test"],
     "declaration": true,
     "declarationMap": true,
     "exactOptionalPropertyTypes": true,
