@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { defineConfig, devices } from '@playwright/test';
 
 /**
@@ -35,7 +36,7 @@ export default defineConfig({
 
     screenshot: 'only-on-failure',
     actionTimeout: 3000,
-    navigationTimeout: 3000
+    navigationTimeout: 3000,
   },
 
   /* Configure projects for major browsers */
