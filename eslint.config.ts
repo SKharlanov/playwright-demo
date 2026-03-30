@@ -34,7 +34,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['**/*.{ajs,cjs,ts,mts,cts}'],
+    files: ['**/*.{ajs,cjs,ts,mts,cts,mjs}'],
     plugins: { eslint },
     extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
     languageOptions: {
