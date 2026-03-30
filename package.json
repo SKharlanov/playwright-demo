@@ -14,7 +14,7 @@
     "test:edge": "npx playwright test --project Edge",
     "test:safari": "npx playwright test --project Safari",
     "allure": "allure generate ./reports/allure && allure open ./reports/allure/awesome",
-    "prepare": "husky && husky install"
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,8 @@
     "@types/node": "^25.5.0",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
+    "allure": "^3.3.1",
+    "allure-playwright": "^3.6.0",
     "eslint": "^10.1.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^2.10.1",
@@ -36,6 +38,10 @@
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.2"
+  },
+  "overrides": {
+    "underscore": "^1.13.8",
+    "glob": "^13.0.6"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown src",
