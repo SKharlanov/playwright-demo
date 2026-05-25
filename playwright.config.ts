@@ -15,7 +15,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: 'src/tests',
   // Folder for test artifacts such as screenshots, videos, traces, etc.
-  outputDir: 'test-results',
+  outputDir: 'reports/test-results',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -63,7 +63,7 @@ export default defineConfig({
   projects: [
     {
       name: 'Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      use: { ...devices['Desktop Chrome'] },
     },
 
     {
@@ -78,7 +78,7 @@ export default defineConfig({
 
     {
       name: 'Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
+      use: { ...devices['Desktop Edge'] },
     },
 
     /* Test against mobile viewports. */
@@ -100,7 +100,7 @@ export default defineConfig({
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
-  ],
+  ].filter((p) => !process.env.BROWSER || p.name === process.env.BROWSER),
 
   /* Run your local dev server before starting the tests */
   // webServer: {

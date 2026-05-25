@@ -1,0 +1,18 @@
+services:
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.60.0-noble
+    container_name: playwright-allure-runner
+    ipc: host
+    working_dir: /app
+    ports:
+      - '4040:4040'
+    environment:
+      - BROWSER=Chrome
+    volumes:
+      - ../:/app
+      - /app/node_modules
+    command: >
+      sh -c "
+            npm install &&
+            npx playwright test || true &&
+            npx allure generate -o /app/reports/allure /app/reports/allure"
