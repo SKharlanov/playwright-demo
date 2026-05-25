@@ -1,6 +1,8 @@
 services:
-  playwright:
-    image: mcr.microsoft.com/playwright:v1.60.0-noble
+  playwright-tests:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
     container_name: playwright-allure-runner
     ipc: host
     working_dir: /app
@@ -13,6 +15,7 @@ services:
       - /app/node_modules
     command: >
       sh -c "
-            npm install &&
-            npx playwright test || true &&
-            npx allure generate -o /app/reports/allure /app/reports/allure"
+            npx playwright test;
+            EXIT_CODE=$$?;
+            npx allure generate -o /app/reports/allure /app/reports/allure;
+            exit $$EXIT_CODE"
