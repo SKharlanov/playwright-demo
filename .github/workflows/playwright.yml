@@ -28,7 +28,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Start Containers And Run Tests
-        working-directory: ./docker
+        working-directory: docker
         run: docker compose up --exit-code-from playwright-tests --abort-on-container-exit
 
       - name: Load Test Report History
