@@ -31,10 +31,19 @@ jobs:
         working-directory: ./docker
         run: docker compose up --exit-code-from playwright-tests --abort-on-container-exit
 
+      - name: Load Test Report History
+        uses: actions/checkout@v5
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
       - name: Deploy Allure Report To GitHub Pages
         if: always()
         uses: simple-elf/allure-report-action@v1.11
         with:
+          gh_pages: gh-pages
           allure_results: reports/allure
           allure_history: allure-history
           keep_reports: 5
@@ -44,6 +53,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
           publish_dir: allure-history
 
       - name: Upload Allure Report Artifact

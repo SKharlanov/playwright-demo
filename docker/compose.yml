@@ -13,6 +13,7 @@ services:
     volumes:
       - ../:/app
       - /app/node_modules
+      - ../reports/allure:/app/reports/allure
     command: >
       sh -c "
             npx playwright test;
