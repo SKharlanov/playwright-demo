@@ -28,7 +28,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Start Containers And Run Tests
-        working-directory: docker
+        working-directory: ./docker
         run: docker compose up --exit-code-from playwright-tests --abort-on-container-exit
 
       - name: Load Test Report History
@@ -41,7 +41,7 @@ jobs:
 
       - name: Deploy Allure Report To GitHub Pages
         if: always()
-        uses: simple-elf/allure-report-action@v1.11
+        uses: simple-elf/allure-report-action@v1.12
         with:
           gh_pages: gh-pages
           allure_results: reports/allure
