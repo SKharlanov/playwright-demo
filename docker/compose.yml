@@ -16,6 +16,4 @@ services:
     command: >
       sh -c "
             npx playwright test;
-            EXIT_CODE=$$?;
-            npx allure generate -o /app/reports/allure /app/reports/allure;
-            exit $$EXIT_CODE"
+            exit $$?"
