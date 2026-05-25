@@ -31,6 +31,21 @@ jobs:
         working-directory: ./docker
         run: docker compose up --exit-code-from playwright-tests --abort-on-container-exit
 
+      - name: Deploy Allure Report To GitHub Pages
+        if: always()
+        uses: simple-elf/allure-report-action@v1.11
+        with:
+          allure_results: reports/allure
+          allure_history: allure-history
+          keep_reports: 5
+
+      - name: Deploy Report To Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-history
+
       - name: Upload Allure Report Artifact
         if: always()
         uses: actions/upload-artifact@v4
