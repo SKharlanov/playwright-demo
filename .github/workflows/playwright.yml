@@ -41,7 +41,7 @@ jobs:
 
       - name: Deploy Allure Report To GitHub Pages
         if: always()
-        uses: simple-elf/allure-report-action@v1.12
+        uses: simple-elf/allure-report-action@v1.13
         with:
           gh_pages: gh-pages
           allure_results: reports/allure
