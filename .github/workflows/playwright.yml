@@ -42,13 +42,10 @@ jobs:
       - name: Deploy Allure Report To GitHub Pages
         if: always()
         run: |
-          npm install -g allure3
-
           if [ -d "gh-pages-history/history" ]; then
             cp -r gh-pages-history/history allure-results/
           fi
-
-          allure3 generate allure-results --clean -o allure-report
+          npx allure generate allure-results --clean -o allure-report
 
       - name: Deploy Report To Github Pages
         if: always()
