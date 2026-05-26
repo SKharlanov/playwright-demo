@@ -47,12 +47,15 @@ pages:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
   dependencies:
     - playwright-tests
+
   cache:
     key: 'allure-pages-cache'
     paths:
       - public/
+
   script:
     - npm install -g allure-commandline --allow-root
     - mkdir -p public
@@ -62,6 +65,7 @@ pages:
     - echo "<h1>Allure Reports Index</h1><ul>" > public/index.html
     - for d in public/*/; do dir=$(basename "$d"); echo "<li><a href='./$dir/'>$dir</a></li>" >> public/index.html; done
     - echo "</ul>" >> public/index.html
+
   artifacts:
     paths:
       - public
