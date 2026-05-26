@@ -42,6 +42,7 @@ playwright-tests:
 pages:
   stage: deploy
   image: node:18-alpine
+  when: always
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -58,6 +59,7 @@ pages:
     - npm install -g allure-commandline --allow-root
     - mkdir -p public
     - BRANCH_DIR=$(echo $CI_COMMIT_REF_SLUG)
+    - if [ ! -d "reports/allure" ]; then echo "Allure results not found! Creating empty dir..."; mkdir -p reports/allure; fi
     - rm -rf public/$BRANCH_DIR
     - allure generate reports/allure -o public/$BRANCH_DIR --clean
     - echo "<h1>Allure Reports Index</h1><ul>" > public/index.html
