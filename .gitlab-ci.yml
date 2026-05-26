@@ -1,0 +1,68 @@
+stages:
+  - test
+  - deploy
+
+variables:
+  DOCKER_TLS_CERTDIR: '/certs'
+  ALLURE_RESULTS_DIR: 'reports/allure'
+
+.docker-setup:
+  image: docker:24.0.7
+  services:
+    - docker:24.0.7-dind
+  tags:
+    - docker
+
+playwright-tests:
+  extends: .docker-setup
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+  before_script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build
+      --cache-from $CI_REGISTRY_IMAGE:latest
+      -t docker-playwright:latest
+      -f docker/Dockerfile .
+
+  script:
+    - cd docker
+    - docker compose up --exit-code-from playwright-tests --abort-on-container-exit
+
+  after_script:
+    - cd docker
+    - docker compose down
+
+  artifacts:
+    when: always
+    paths:
+      - reports/allure/
+    expire_in: 10 days
+
+pages:
+  stage: deploy
+  image: node:18-alpine
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  dependencies:
+    - playwright-tests
+  cache:
+    key: 'allure-pages-cache'
+    paths:
+      - public/
+  script:
+    - npm install -g allure-commandline --allow-root
+    - mkdir -p public
+    - BRANCH_DIR=$(echo $CI_COMMIT_REF_SLUG)
+    - rm -rf public/$BRANCH_DIR
+    - allure generate reports/allure -o public/$BRANCH_DIR --clean
+    - echo "<h1>Allure Reports Index</h1><ul>" > public/index.html
+    - for d in public/*/; do dir=$(basename "$d"); echo "<li><a href='./$dir/'>$dir</a></li>" >> public/index.html; done
+    - echo "</ul>" >> public/index.html
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
