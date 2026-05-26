@@ -41,11 +41,12 @@ jobs:
 
       - name: Deploy Allure Report To GitHub Pages
         if: always()
-        run: |
-          if [ -d "gh-pages-history/history" ]; then
-            cp -r gh-pages-history/history allure-results/
-          fi
-          npx allure generate allure-results --clean -o allure-report
+        uses: simple-elf/allure-report-action@v1.13
+        with:
+          gh_pages: gh-pages
+          allure_results: reports/allure
+          allure_history: allure-history
+          keep_reports: 5
 
       - name: Deploy Report To Github Pages
         if: always()
