@@ -41,7 +41,7 @@ playwright-tests:
 
 pages:
   stage: deploy
-  image: node:18-alpine
+  image: timbru4u/node-java:18-alpine
   when: always
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
