@@ -1,4 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","735","has title","Chrome","Tue May 26 09:42:15 UTC 2026","passed","Tue May 26 09:42:16 UTC 2026","","example.spec.ts","",""
-"","809","get started link","Chrome","Tue May 26 09:42:15 UTC 2026","passed","Tue May 26 09:42:16 UTC 2026","","example.spec.ts","",""
-"","5383","failed test","Chrome","Tue May 26 09:42:16 UTC 2026","failed","Tue May 26 09:42:22 UTC 2026","","example.spec.ts","",""
