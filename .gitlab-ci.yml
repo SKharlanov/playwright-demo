@@ -10,8 +10,6 @@ variables:
   image: docker:24.0.7
   services:
     - docker:24.0.7-dind
-  tags:
-    - docker
 
 playwright-tests:
   extends: .docker-setup
